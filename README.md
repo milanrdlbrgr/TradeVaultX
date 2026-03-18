@@ -3,7 +3,15 @@
 > **Professional Trading Journal — by Milan**
 
 TradeVaultX is a powerful desktop trading journal built for serious day traders. Track your trades, analyze your performance, and improve your edge — all in one clean, modern app.
-<img width="1203" height="982" alt="image" src="https://github.com/user-attachments/assets/714b643a-6b56-4494-9134-90d72033248d" />
+## Overview
+- [Dashboard](#dashboard)
+- [Trade Log](#trade-log)
+- [Calendar](#calendar)
+- [Accounts](#accounts)
+- [Strategies](#strategies)
+- [Payouts](#payouts)
+- [Lot Size Calculator](#lot-size-calculator)
+- [Flex Panel](#flex-panel-)
 
 ---
 
