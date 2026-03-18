@@ -10,11 +10,19 @@
   },
   "devDependencies": {
     "electron": "^41.0.3",
-    "electron-builder": "^24.13.3"
+    "electron-builder": "^24.0.0"
+  },
+  "dependencies": {
+    "electron-updater": "^6.1.7"
   },
   "build": {
     "appId": "com.tradevaultx.app",
     "productName": "TradeVaultX",
+    "publish": {
+      "provider": "github",
+      "owner": "solsuccess",
+      "repo": "TradeVaultX"
+    },
     "win": {
       "target": "nsis",
       "icon": "icon.png"
@@ -22,9 +30,6 @@
     "nsis": {
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
-      "installerIcon": "icon.png",
-      "uninstallerIcon": "icon.png",
-      "installerHeaderIcon": "icon.png",
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true
     },

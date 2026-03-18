@@ -1,6 +1,9 @@
-const { app, BrowserWindow, shell } = require('electron');
+const { app, BrowserWindow, dialog } = require('electron');
+const { autoUpdater } = require('electron-updater');
 const path = require('path');
-const fs = require('fs');
+
+// Disable hardware acceleration - fixes blurry/pixelated rendering
+app.disableHardwareAcceleration();
 
 let mainWindow;
 
@@ -15,30 +18,49 @@ function createWindow() {
       contextIsolation: true,
     },
     icon: path.join(__dirname, 'icon.png'),
-    titleBarStyle: 'default',
     title: 'TradeVaultX',
     backgroundColor: '#080808',
     show: false,
   });
 
   mainWindow.loadFile('TradeVault-v3.html');
-
-  mainWindow.once('ready-to-show', () => {
-    mainWindow.show();
-  });
-
-  // Remove default menu
+  mainWindow.once('ready-to-show', () => mainWindow.show());
   mainWindow.setMenuBarVisibility(false);
 }
 
 app.whenReady().then(() => {
   createWindow();
-
-  app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow();
-  });
+  checkForUpdates();
 });
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit();
 });
+
+function checkForUpdates() {
+  autoUpdater.checkForUpdatesAndNotify();
+
+  autoUpdater.on('update-available', () => {
+    dialog.showMessageBox(mainWindow, {
+      type: 'info',
+      title: 'Update verfügbar',
+      message: 'Eine neue Version von TradeVaultX ist verfügbar. Sie wird jetzt heruntergeladen.',
+      buttons: ['OK']
+    });
+  });
+
+  autoUpdater.on('update-downloaded', () => {
+    dialog.showMessageBox(mainWindow, {
+      type: 'info',
+      title: 'Update bereit',
+      message: 'Update wurde heruntergeladen. TradeVaultX wird jetzt neu gestartet.',
+      buttons: ['Jetzt neu starten']
+    }).then(() => {
+      autoUpdater.quitAndInstall();
+    });
+  });
+
+  autoUpdater.on('error', (err) => {
+    console.log('Auto-updater error:', err);
+  });
+}
