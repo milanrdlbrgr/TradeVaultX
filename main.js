@@ -23,7 +23,7 @@ function createWindow() {
     show: false,
   });
 
-  mainWindow.loadFile('TradeVault-v3.html');
+  mainWindow.loadFile('TradeVaultX.html');
   mainWindow.once('ready-to-show', () => mainWindow.show());
   mainWindow.setMenuBarVisibility(false);
 }
