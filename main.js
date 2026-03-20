@@ -1,8 +1,7 @@
-const { app, BrowserWindow, dialog } = require('electron');
+const { app, BrowserWindow, dialog, protocol } = require('electron');
 const { autoUpdater } = require('electron-updater');
 const path = require('path');
 
-// Disable hardware acceleration - fixes blurry/pixelated rendering
 app.disableHardwareAcceleration();
 
 let mainWindow;
@@ -16,6 +15,7 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
+      webSecurity: false,
     },
     icon: path.join(__dirname, 'icon.png'),
     title: 'TradeVaultX',
@@ -23,7 +23,7 @@ function createWindow() {
     show: false,
   });
 
-  mainWindow.loadFile('TradeVaultX.html');
+  mainWindow.loadFile(path.join(__dirname, 'TradeVaultX.html'));
   mainWindow.once('ready-to-show', () => mainWindow.show());
   mainWindow.setMenuBarVisibility(false);
 }
@@ -44,7 +44,7 @@ function checkForUpdates() {
     dialog.showMessageBox(mainWindow, {
       type: 'info',
       title: 'Update available',
-      message: 'A new version is available.',
+      message: 'New version of TradeVaultX available.',
       buttons: ['OK']
     });
   });
@@ -53,8 +53,8 @@ function checkForUpdates() {
     dialog.showMessageBox(mainWindow, {
       type: 'info',
       title: 'Update ready',
-      message: 'Update successfull. TradeVaultX will restart.',
-      buttons: ['Restart']
+      message: 'Restart TradeVaultX.',
+      buttons: ['Restart now']
     }).then(() => {
       autoUpdater.quitAndInstall();
     });
