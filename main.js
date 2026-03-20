@@ -43,8 +43,8 @@ function checkForUpdates() {
   autoUpdater.on('update-available', () => {
     dialog.showMessageBox(mainWindow, {
       type: 'info',
-      title: 'Update verfügbar',
-      message: 'Eine neue Version von TradeVaultX ist verfügbar. Sie wird jetzt heruntergeladen.',
+      title: 'Update available',
+      message: 'A new version is available.',
       buttons: ['OK']
     });
   });
@@ -52,9 +52,9 @@ function checkForUpdates() {
   autoUpdater.on('update-downloaded', () => {
     dialog.showMessageBox(mainWindow, {
       type: 'info',
-      title: 'Update bereit',
-      message: 'Update wurde heruntergeladen. TradeVaultX wird jetzt neu gestartet.',
-      buttons: ['Jetzt neu starten']
+      title: 'Update ready',
+      message: 'Update successfull. TradeVaultX will restart.',
+      buttons: ['Restart']
     }).then(() => {
       autoUpdater.quitAndInstall();
     });
